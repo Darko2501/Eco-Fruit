@@ -9,37 +9,36 @@ from psycopg2 import Error
 root=Tk()
 
 root.title("ECO-FRUIT")
-#Padajuci meni za excel tabele
 meni=Menu(root)
 podmeni1=Menu(meni,tearoff=0)
 meni.add_cascade(label="EXCEL FILES",menu=podmeni1)
 podmeni1.add_command(label="FRIUT STOCKS",command=lambda:E.stocks_ex())
 podmeni1.add_command(label="FRUIT SALES",command=lambda:E.purhased_ex())
 podmeni1.add_command(label="FRUIT PURSHASES",command=lambda:E.sold_ex())
-#Padajuci meni za dodavanje asortimana i otkazivanje nabavke i prodaje
+
 podmeni2=Menu(meni,tearoff=0)
 meni.add_cascade(label="CHANGES",menu=podmeni2)
 podmeni2.add_command(label="ADD IN THE ASSORTMENT",command=lambda:top1())
 podmeni2.add_command(label="CANCEL PURCHASE",command=lambda:top2())
 podmeni2.add_command(label="CANCEL SALE",command=lambda:top3())
-#Padajuci meni za graficki prikaz
+
 podmeni3=Menu(meni,tearoff=0)
 meni.add_cascade(label="GRAPHIC DISPLAY",menu=podmeni3)
 podmeni3.add_command(label="SHOW STOCKS",command=lambda:E.stocks_graph())
 podmeni3.add_command(label="SHOW SALES",command=lambda:E.sales_graph())
 podmeni3.add_command(label="SHOW PURCHAS",command=lambda:E.purchase_graf())
-#padajuci meni za Exit
+
 podmeni4=Menu(meni,tearoff=0)
 meni.add_cascade(label="EXIT",menu=podmeni4)
 podmeni4.add_command(label="EXIT",command=lambda:E.exit())
-#prvi Treeview
+
 columns=('ID_FRUIT','FRUIT','QUANTITY')
 t1=ttk.Treeview(root,columns=columns,show='headings')
 t1.heading('ID_FRUIT',text='ID FRUIT')
 t1.heading('FRUIT',text='FRUIT')
 t1.heading('QUANTITY',text='QUANTITY (t)')
 t1.grid(row=1,column=0,rowspan=10,columnspan=3)
-#Drugi treeview
+
 columns1=('ID','ID_FRUIT','FRUIT','QUANTITY','PRICE_FOR_KG','DATE_OF_INPUT','VALUE_P')
 t2=ttk.Treeview(root,columns=columns1,show='headings')
 t2.heading('ID',text="ID ")
@@ -50,7 +49,7 @@ t2.heading('PRICE_FOR_KG',text='PRICE FOR KG')
 t2.heading('DATE_OF_INPUT',text='DATE OF INPUT')
 t2.heading('VALUE_P',text='VALUE')
 t2.grid(row=15,column=0,rowspan=3,columnspan=7)
-#Pravljenje labela za Entry
+
 l1=Label(root,text="ID FRUIT")
 l1.grid(row=19,column=0)
 l2=Label(root,text="FRUIT")
@@ -60,7 +59,6 @@ l3.grid(row=19,column=2)
 l4=Label(root,text="PRICE (kg)")
 l4.grid(row=19,column=3)
 
-# Pravljenje polja za unos
 e1=Entry(root)
 e1.grid(row=20,column=0)
 e2=Entry(root)
@@ -70,21 +68,20 @@ e3.grid(row=20,column=2)
 e4=Entry(root)
 e4.grid(row=20,column=3)
 
-#labela za ispisivanje
 l8=Label(root,text="",fg="black",font=22)
 l8.grid(row=0,column=3,columnspan=4,rowspan=7)
-#pravljenje dugmadi za unos podataka
+
 b2=Button(root,text='BUY',padx=35,command=lambda:l8.configure(text=E.buy(int(e1.get()),str(e2.get().upper()),float(e3.get()),float(e4.get()))))
 b2.grid(row=19,column=5)
 b3=Button(root,text='SELL',padx=30,command=lambda:l8.configure(text=E.sell(int(e1.get()),str(e2.get().upper()),float(e3.get()),float(e4.get()))))
 b3.grid(row=20,column=5)
-#Naslov za drugi treeview
+
 l5=Label(root,text='PURCHASED FRUITS',font=22,fg='blue')
 l5.grid(row=14,column=0,columnspan=7)
-#Naslov za prvi treeview
+
 l6=Label(root,text='STOCKS OF FRUITS',font=22,fg='blue')
 l6.grid(row=0,column=0,columnspan=3)
-#treci treeview
+
 columns2=('ID','ID_FRUIT','FRUIT','QUANTITY','PRICE_FOR_KG','DATE_OF_SALE','VALUE_S')
 t3=ttk.Treeview(root,columns=columns2,show='headings')
 t3.heading('ID',text="ID ")
@@ -95,7 +92,7 @@ t3.heading('PRICE_FOR_KG',text='PRICE  (kg)')
 t3.heading('DATE_OF_SALE',text='DATE OF SALE')
 t3.heading('VALUE_S',text='VALUE')
 t3.grid(row=22,column=0,rowspan=3,columnspan=7)
-#Naslov za treci treeview
+
 l7=Label(root,text='SALE OF FRUITS',font=22,fg='blue')
 l7.grid(row=21,column=0,columnspan=7)
 root.configure(menu=meni)
